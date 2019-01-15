@@ -62,65 +62,12 @@ switch (option) {
     break;
   case 'get-data-all':
     // get all audit data
-    // async problem: need to fix
-    ethapi.getAuditDataCount(function (error, result) {
+    ethapi.getAuditDataAll(function (error, result) {
       if (error) console.log(error);
-      else {
-        console.log('data count = ' + result);
-        for (var i = 0; i < parseInt(result); i++) {
-          var reqbody_temp = {};
-          reqbody_temp.index = i;
-          ethapi.getAuditKey(reqbody_temp, function (error, result) {
-            if (error) console.log(error);
-            else {
-              reqbody_temp.key = result;
-              console.log('audit index = ' + reqbody_temp.index);
-              ethapi.getAuditDataByKey(reqbody_temp, function (error, result) {
-                if (error) console.log(error);
-                else {
-                  console.log('audit key = ' + reqbody_temp.key);
-                  console.log('audit data = ' + result);
-                }
-              });
-            }
-          });
-        }
-      }
+      else console.log(result);
     });
     break;
   default:
     console.log("Usage: node audit.js [option]");
     break;
 }
-
-
-/*
-ethapi.getAuditDataCount(async function(error, result) {
-  if (error) console.log(error);
-  else {
-    console.log('data count = ' + result);
-    var array = [];
-    for(var i=0; i<parseInt(result); i++) {
-      array.push(i);
-    }
-    array.forEach(async (item) => {
-      var reqbody_temp = {};
-      reqbody_temp.index = item;
-      await ethapi.getAuditKey(reqbody_temp, async function (error, result) {
-        if (error) console.log(error);
-        else {
-          reqbody_temp.key = result;
-          console.log('audit index = ' + reqbody_temp.index);
-          await ethapi.getAuditDataByKey(reqbody_temp, function (error, result) {
-            if (error) console.log(error);
-            else {
-              console.log('audit key = ' + reqbody_temp.key);
-              console.log('audit data = ' + result);
-            }
-          });
-        }
-      });
-    });
-  }
-});
-*/

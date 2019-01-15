@@ -54,6 +54,7 @@ exports.unlockEthAccount = function (callback) {
 //   exports.getAuditKey(reqbody)
 //   exports.addNewOwner(reqbody)
 //   exports.checkIsOwner(reqbody)
+//   exports.getAuditDataAll(reqbody)
 // ------------------------------------------------------
 exports.insertAuditData = function (reqbody, callback) {
   if (reqbody.key == "" || reqbody.key == undefined || reqbody.data == "" || reqbody.data == undefined) {
@@ -193,6 +194,25 @@ exports.checkIsOwner = function (reqbody, callback) {
   });
 };
 
+exports.getAuditDataAll = function (callback) {
+  connectAndAccessContract(config, function (error, contract) {
+    if (error) {
+      processLog(config.SRC_NAME, 'getAuditDataAll(0)', error);
+      callback(error, null);
+    } else {
+      _getAuditDataAll(contract, function (error, response) {
+        if (error) {
+          processLog(config.SRC_NAME, 'getAuditDataAll(1)', error);
+          callback(error, null);
+        } else {
+          processLog(config.SRC_NAME, 'getAuditDataAll(2)', response);
+          callback(null, response);
+        }
+      });
+    }
+  });
+};
+
 // ------------------------------------------------------
 // Specialized Functions [inner]
 //   _insertAuditData(contract, key, data)
@@ -201,6 +221,7 @@ exports.checkIsOwner = function (reqbody, callback) {
 //   _getAuditKey(contract, index)
 //   _addNewOwner(contract, addr)
 //   _checkIsOwner(contract, addr)
+//   _getAuditDataAll(contract)
 // ------------------------------------------------------
 _insertAuditData = function (contract, key, data, callback) {
   contract.methods.insertAuditData(key, data).send({
@@ -320,6 +341,43 @@ _checkIsOwner = function (contract, addr, callback) {
         processLog(config.SRC_NAME, 'checkIsOwner(6)', response);
         callback(null, response);
       }
+    }
+  });
+};
+
+_getAuditDataAll = function (contract, callback) {
+  contract.methods.getAuditDataCount().call(function (error, result) {
+    if (error) {
+      processLog(config.SRC_NAME, 'getAuditDataAll(3)', error);
+      callback(error, null);
+    }
+    else {
+      //console.log('data count = ' + result);
+      var response = [];
+      for (var i = 0; i < parseInt(result); i++) {
+        contract.methods.getAuditKey(i).call(function (error, result_key) {
+          if (error) {
+            processLog(config.SRC_NAME, 'getAuditDataAll(4)', error);
+            callback(error, null);
+          }
+          else {
+            //console.log(result_key);
+            contract.methods.getAuditData(result_key).call(function (error, result_data) {
+              if (error) {
+                processLog(config.SRC_NAME, 'getAuditDataAll(5)', error);
+                callback(error, null);
+              }
+              else {
+                console.log('audit data key = ' + result_key);
+                console.log('audit data key = ' + result_data);
+                response.push({ result_key: result_data });                
+              }
+            })
+          }
+        })
+      }
+      //processLog(config.SRC_NAME, 'getAuditDataAll(6)', response);
+      //callback(null, response);
     }
   });
 };
