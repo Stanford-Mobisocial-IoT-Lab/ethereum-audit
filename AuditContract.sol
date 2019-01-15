@@ -35,6 +35,7 @@ contract AuditContract {
         require(isOwner[msg.sender]);
         auditDataList[_key] = _data;
         if (!keyExist[_key]) {
+            keyExist[_key] = true;
             auditKeyList[dataCount] = _key;
             dataCount++;
         }
