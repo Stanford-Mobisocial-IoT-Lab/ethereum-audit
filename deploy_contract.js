@@ -52,8 +52,8 @@ web3.eth.personal.unlockAccount(config.COINBASE_ACCOUNT, config.PASSPHRASE, 60)
                 console.log('The config file has been saved!');
             });
         }).catch(function(error) {
-            console.log('deploy fail ,error: ' + error);
+            console.log('deploy fail, error: ' + error);
         })
     }).catch(function(error) {
-        console.log('unlockAccount fail ,error: ' + error);
+        console.log('unlockAccount fail, error: ' + error);
     });

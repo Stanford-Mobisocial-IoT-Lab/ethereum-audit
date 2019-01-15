@@ -8,14 +8,14 @@ contract AuditContract {
     // to store the audit data 
     mapping(string => string) auditDataList;
 
-    //to store the audit keys
+    // to store the audit keys
     mapping(uint => string) AuditKeyList;
 
     // to record the audit data count
     uint public dataCount;
   
     // the constructor for assigning the contract issuer to be one of the owners
-    constructor() public{
+    function AuditContract() public {
         isOwner[msg.sender] = true;
     }  
 
@@ -45,13 +45,14 @@ contract AuditContract {
         return dataCount;
     }
 
-    //get the audit key by index
-    function getAuditKey(uint _num) external view returns(string){
-        return AuditKeyList[_num];
+    // get the audit key by index
+    function getAuditKey(uint _index) external view returns(string) {
+        return AuditKeyList[_index];
     }
 
     // check the address is owner or not
-    function checkIsOwner(address _addr) external view returns(bool){
+    function checkIsOwner(address _addr) external view returns(bool) {
         return isOwner[_addr];
     }
+
 }
