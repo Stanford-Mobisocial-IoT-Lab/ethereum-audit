@@ -353,8 +353,8 @@ _getAuditDataAll = function (contract, callback) {
     }
     else {
       //console.log('data count = ' + result);
-      var response = [];
-      for (var i = 0; i < parseInt(result); i++) {
+      var response = [], dataCount = parseInt(result);
+      for (var i = 0; i < dataCount; i++) {
         contract.methods.getAuditKey(i).call(function (error, result_key) {
           if (error) {
             processLog(config.SRC_NAME, 'getAuditDataAll(4)', error);
@@ -368,16 +368,18 @@ _getAuditDataAll = function (contract, callback) {
                 callback(error, null);
               }
               else {
-                console.log('audit data key = ' + result_key);
-                console.log('audit data key = ' + result_data);
-                response.push({ result_key: result_data });                
+                //console.log('audit data key = ' + result_key);
+                //console.log('audit data key = ' + result_data);
+                response.push({ result_key: result_data });
+                if(response.length == dataCount) {
+                  processLog(config.SRC_NAME, 'getAuditDataAll(6)', response);
+                  callback(null, response);
+                }
               }
-            })
+            });
           }
-        })
+        });
       }
-      //processLog(config.SRC_NAME, 'getAuditDataAll(6)', response);
-      //callback(null, response);
     }
   });
 };
