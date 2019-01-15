@@ -13,15 +13,15 @@ exports.retrieveEthAccounts = function (callback) {
   connectAndObtainWeb3Obj(config, function (error, web3) {
     if (error) {
       processLog(config.SRC_NAME, 'retrieveEthAccounts(0)', error);
-      callback(error, null);
+      callback(JSON.stringify({error}), null);
     } else {
       web3.eth.getAccounts()
         .then(function (result) {
           processLog(config.SRC_NAME, 'retrieveEthAccounts(1)', result);
-          callback(null, result);
+          callback(null, JSON.stringify({result}));
         }).catch(function (error) {
           processLog(config.SRC_NAME, 'retrieveEthAccounts(2)', error);
-          callback(error, null);
+          callback(JSON.stringify({error}), null);
         });
     }
   });
@@ -31,16 +31,15 @@ exports.unlockEthAccount = function (callback) {
   connectAndObtainWeb3Obj(config, function (error, web3) {
     if (error) {
       processLog(config.SRC_NAME, 'unlockEthAccount(0)', error);
-      callback(error, null);
+      callback(JSON.stringify({error}), null);
     } else {
-      // PASSPHRASE placement should be modified
       web3.eth.personal.unlockAccount(config.COINBASE_ACCOUNT, config.PASSPHRASE, 0)
         .then(function (result) {
           processLog(config.SRC_NAME, 'unlockEthAccount(1)', result);
-          callback(null, result);
+          callback(null, JSON.stringify({result}));
         }).catch(function (error) {
           processLog(config.SRC_NAME, 'unlockEthAccount(2)', error);
-          callback(error, null);
+          callback(JSON.stringify({error}), null);
         });
     }
   });
@@ -60,20 +59,20 @@ exports.insertAuditData = function (reqbody, callback) {
   if (reqbody.key == "" || reqbody.key == undefined || reqbody.data == "" || reqbody.data == undefined) {
     error = "Inserted values are empty.";
     processLog(config.SRC_NAME, 'insertAuditData(0)', error);
-    callback(error, null);
+    callback(JSON.stringify({error}), null);
   } else {
     connectAndAccessContract(config, function (error, contract) {
       if (error) {
         processLog(config.SRC_NAME, 'insertAuditData(1)', error);
-        callback(error, null);
+        callback(JSON.stringify({error}), null);
       } else {
         _insertAuditData(contract, reqbody.key, reqbody.data, function (error, response) {
           if (error) {
             processLog(config.SRC_NAME, 'insertAuditData(2)', error);
-            callback(error, null);
+            callback(JSON.stringify({error}), null);
           } else {
             processLog(config.SRC_NAME, 'insertAuditData(3)', response);
-            callback(null, response);
+            callback(null, JSON.stringify({response}));
           }
         });
       }
@@ -85,20 +84,22 @@ exports.getAuditDataByKey = function (reqbody, callback) {
   if (reqbody.key == "" || reqbody.key == undefined) {
     error = "Inserted values are empty.";
     processLog(config.SRC_NAME, 'getAuditDataByKey(0)', error);
-    callback(error, null);
+    callback(JSON.stringify({error}), null);
   } else {
     connectAndAccessContract(config, function (error, contract) {
       if (error) {
         processLog(config.SRC_NAME, 'getAuditDataByKey(1)', error);
-        callback(error, null);
+        callback(JSON.stringify({error}), null);
       } else {
         _getAuditDataByKey(contract, reqbody.key, function (error, response) {
           if (error) {
             processLog(config.SRC_NAME, 'getAuditDataByKey(2)', error);
-            callback(error, null);
+            callback(JSON.stringify({error}), null);
           } else {
             processLog(config.SRC_NAME, 'getAuditDataByKey(3)', response);
-            callback(null, response);
+            var obj = {};
+            obj[reqbody.key] = response;
+            callback(null, JSON.stringify(obj));
           }
         });
       }
@@ -110,15 +111,15 @@ exports.getAuditDataCount = function (callback) {
   connectAndAccessContract(config, function (error, contract) {
     if (error) {
       processLog(config.SRC_NAME, 'getAuditDataCount(0)', error);
-      callback(error, null);
+      callback(JSON.stringify({error}), null);
     } else {
       _getAuditDataCount(contract, function (error, response) {
         if (error) {
           processLog(config.SRC_NAME, 'getAuditDataCount(1)', error);
-          callback(error, null);
+          callback(JSON.stringify({error}), null);
         } else {
           processLog(config.SRC_NAME, 'getAuditDataCount(2)', response);
-          callback(null, response);
+          callback(null, JSON.stringify({response}));
         }
       });
     }
@@ -129,20 +130,22 @@ exports.getAuditKey = function (reqbody, callback) {
   if (reqbody.index == "" || reqbody.index == undefined) {
     error = "Inserted values are empty.";
     processLog(config.SRC_NAME, 'getAuditKey(0)', error);
-    callback(error, null);
+    callback(JSON.stringify({error}), null);
   } else {
     connectAndAccessContract(config, function (error, contract) {
       if (error) {
         processLog(config.SRC_NAME, 'getAuditKey(1)', error);
-        callback(error, null);
+        callback(JSON.stringify({error}), null);
       } else {
         _getAuditKey(contract, reqbody.index, function (error, response) {
           if (error) {
             processLog(config.SRC_NAME, 'getAuditKey(2)', error);
-            callback(error, null);
+            callback(JSON.stringify({error}), null);
           } else {
             processLog(config.SRC_NAME, 'getAuditKey(3)', response);
-            callback(null, response);
+            var obj = {};
+            obj[reqbody.index] = response;
+            callback(null, JSON.stringify(obj));
           }
         });
       }
@@ -154,20 +157,20 @@ exports.addNewOwner = function (reqbody, callback) {
   if (reqbody.addr == "" || reqbody.addr == undefined) {
     error = "Inserted values are empty.";
     processLog(config.SRC_NAME, 'addNewOwner(0)', error);
-    callback(error, null);
+    callback(JSON.stringify({error}), null);
   } else {
     connectAndAccessContract(config, function (error, contract) {
       if (error) {
         processLog(config.SRC_NAME, 'addNewOwner(1)', error);
-        callback(error, null);
+        callback(JSON.stringify({error}), null);
       } else {
         _addNewOwner(contract, reqbody.addr, function (error, response) {
           if (error) {
             processLog(config.SRC_NAME, 'addNewOwner(2)', error);
-            callback(error, null);
+            callback(JSON.stringify({error}), null);
           } else {
             processLog(config.SRC_NAME, 'addNewOwner(3)', response);
-            callback(null, response);
+            callback(null, JSON.stringify({response}));
           }
         });
       }
@@ -179,15 +182,15 @@ exports.checkIsOwner = function (reqbody, callback) {
   connectAndAccessContract(config, function (error, contract) {
     if (error) {
       processLog(config.SRC_NAME, 'checkIsOwner(0)', error);
-      callback(error, null);
+      callback(JSON.stringify({error}), null);
     } else {
       _checkIsOwner(contract, reqbody.addr, function (error, response) {
         if (error) {
           processLog(config.SRC_NAME, 'checkIsOwner(1)', error);
-          callback(error, null);
+          callback(JSON.stringify({error}), null);
         } else {
           processLog(config.SRC_NAME, 'checkIsOwner(2)', response);
-          callback(null, response);
+          callback(null, JSON.stringify({response}));
         }
       });
     }
@@ -198,15 +201,15 @@ exports.getAuditDataAll = function (callback) {
   connectAndAccessContract(config, function (error, contract) {
     if (error) {
       processLog(config.SRC_NAME, 'getAuditDataAll(0)', error);
-      callback(error, null);
+      callback(JSON.stringify({error}), null);
     } else {
       _getAuditDataAll(contract, function (error, response) {
         if (error) {
           processLog(config.SRC_NAME, 'getAuditDataAll(1)', error);
-          callback(error, null);
+          callback(JSON.stringify({error}), null);
         } else {
           processLog(config.SRC_NAME, 'getAuditDataAll(2)', response);
-          callback(null, response);
+          callback(null, JSON.stringify({response}));
         }
       });
     }
@@ -370,7 +373,9 @@ _getAuditDataAll = function (contract, callback) {
               else {
                 //console.log('audit data key = ' + result_key);
                 //console.log('audit data key = ' + result_data);
-                response.push({ result_key: result_data });
+                var obj = {};
+                obj[result_key] = result_data;
+                response.push(obj);
                 if(response.length == dataCount) {
                   processLog(config.SRC_NAME, 'getAuditDataAll(6)', response);
                   callback(null, response);
