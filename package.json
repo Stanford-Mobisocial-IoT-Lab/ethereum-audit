@@ -1,23 +1,25 @@
 {
-  "name": "audit-lib",
-  "version": "1.0.0",
+  "name": "ethereum-audit",
+  "version": "0.1.0",
   "description": "",
-  "main": "audit.js",
+  "main": "lib/ethereum.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "lint": "eslint lib/"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "fs": "0.0.1-security",
-    "minimist": "^1.2.0",
-    "solc": "^0.4.25",
-    "web3": "^1.0.0-beta.37",
     "async": "^2.6.1",
+    "minimist": "^1.2.0",
     "nodemon": "^1.18.4",
     "pm2": "^3.2.2",
     "solc": "^0.4.25",
     "sqlite3": "^4.0.4",
-    "truffle": "^4.1.14"
+    "truffle": "^4.1.14",
+    "web3": "^1.0.0-beta.37"
+  },
+  "devDependencies": {
+    "eslint": "^5.12.0"
   }
 }
