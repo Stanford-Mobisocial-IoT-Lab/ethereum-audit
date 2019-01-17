@@ -14,6 +14,8 @@ npm install
 const EthAudit = require('ethereum-audit');
 ```
 
+## Test
+
 ```
 Usage: node test_eth_audit.js [options]
        DEBUG=eth_audit_log node test_eth_audit.js [options]
