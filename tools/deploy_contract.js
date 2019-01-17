@@ -16,8 +16,8 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 //
-// Author: Wesley Liu <>
-//         Alison Lin
+// Author: Wesley Liu <Wesley0717@gmail.com>
+//         Alison Lin <yslin1013@gmail.com>
 "use strict";
 
 const minimist = require('minimist');
