@@ -1,22 +1,20 @@
 {
   "name": "ethereum-audit",
   "version": "0.1.0",
-  "description": "",
-  "main": "lib/ethereum.js",
+  "description": "A library to write audit records on the Ethereum blockchain",
+  "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "lint": "eslint lib/"
   },
-  "author": "",
+  "author": "DeepQ Technology Corporation",
   "license": "ISC",
   "dependencies": {
     "async": "^2.6.1",
+    "debug": "^4.1.1",
     "minimist": "^1.2.0",
     "nodemon": "^1.18.4",
-    "pm2": "^3.2.2",
     "solc": "^0.4.25",
-    "sqlite3": "^4.0.4",
-    "truffle": "^4.1.14",
     "web3": "^1.0.0-beta.37"
   },
   "devDependencies": {
