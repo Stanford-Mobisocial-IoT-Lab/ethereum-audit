@@ -1,10 +1,10 @@
 {
-    "COINBASE_ACCOUNT": "0x6cb25ad27e11c99a8b2cbb7bb3d6f7443c7b968f",
-    "PASSPHRASE": "sf9auffhauhf3",
+    "COINBASE_ACCOUNT": "0x5ef9c12b7938ef4c7c8b08378624489a0733eb94",
+    "PASSPHRASE": "stanforddeepq",
     "ETHRPC_IP_PORT": "http://52.32.105.30:8545",
     "GAS": "1500000",
     "GAS_PRICE": "30000000000000",
-    "CONTRACT_ADDR": "0xC93DBd1991141828c8261dBcbe5Ec57389842A0A",
+    "CONTRACT_ADDR": "0xe1ee3fccaAbBE7a537928c0aaFE3B50e1c942148",
     "CONTRACT_ABI": [
         {
             "constant": false,
