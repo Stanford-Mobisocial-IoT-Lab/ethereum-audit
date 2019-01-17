@@ -18,7 +18,7 @@
 //
 // Author: Alison Lin <yslin1013@gmail.com>
 
-const EthAudit = require('../lib/eth_audit');
+const EthAudit = require('../lib/ethereum-audit');
 const config = require('../data/config.json');
 const _ethaudit = new EthAudit(config);
 

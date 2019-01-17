@@ -20,7 +20,7 @@
 
 "use strict";
 
-const EthAudit = require('./lib/eth_audit');
+const EthAudit = require('./lib/ethereum-audit');
 
 module.exports = {
     EthAudit,
