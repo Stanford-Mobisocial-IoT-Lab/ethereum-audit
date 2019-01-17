@@ -23,5 +23,5 @@
 const EthAudit = require('./lib/eth_audit');
 
 module.exports = {
-  EthAudit,
+    EthAudit,
 };
