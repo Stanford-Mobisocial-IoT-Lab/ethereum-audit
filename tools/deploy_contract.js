@@ -16,64 +16,63 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 //
-// Author: Wesley Liu <Wesley0717@gamil.com>
+// Author: Wesley Liu <>
+//         Alison Lin
+"use strict";
 
 const minimist = require('minimist');
 var Web3 = require('web3');
 var solc = require('solc');
 var fs = require('fs');
-var config = require('./config.json')
+var config = require('../data/config.json');
 var args = minimist(process.argv.slice(1), {
     alias: {
         c: 'compile',
     }
 });
 
-web3 = new Web3(new Web3.providers.HttpProvider(config.ETHRPC_IP_PORT));
+var web3 = new Web3(new Web3.providers.HttpProvider(config.ETHRPC_IP_PORT));
 
-if (args.compile || !fs.existsSync('./DeployData/bytecode') || !fs.existsSync('./DeployData/abi.json')) {
-    console.log('Contract compiling...');
-    var source = fs.readFileSync('./AuditContract.sol', 'utf8');
+if (args.compile) {
+    console.log('contract compiling...');
+    var source = fs.readFileSync('../data/AuditContract.sol', 'utf8');
     var output = solc.compile(source, 1);
-    var ContractData = '0x' + output.contracts[':AuditContract'].bytecode;
-    var ContractABI = output.contracts[':AuditContract'].interface;
-    config.CONTRACT_BYTECODE = ContractData;
-    config.CONTRACT_ABI = ContractABI;
-    if (!fs.existsSync('./DeployData'))
-        fs.mkdirSync('./DeployData');
-    fs.writeFileSync('./DeployData/bytecode', ContractData);
-    fs.writeFileSync('./DeployData/abi.json', ContractABI);
-    ContractABI = JSON.parse(ContractABI);
+    var contractData = '0x' + output.contracts[':AuditContract'].bytecode;
+    var contractABI = output.contracts[':AuditContract'].interface;
+    config.CONTRACT_BYTECODE = contractData;
+    config.CONTRACT_ABI = contractABI;
+    contractABI = JSON.parse(contractABI);
 } else {
-    var ContractData = fs.readFileSync('./DeployData/bytecode');
-    var ContractABI = JSON.parse(fs.readFileSync('./DeployData/abi.json'));
+    contractData = config.CONTRACT_BYTECODE;
+    contractABI = config.CONTRACT_ABI;
 }
 
-web3.eth.personal.unlockAccount(config.COINBASE_ACCOUNT, config.PASSPHRASE, 60)
-    .then(function(result) {
+web3.eth.personal.unlockAccount(config.COINBASE_ACCOUNT, config.PASSPHRASE, 10)
+    .then((result) => {
         console.log('unlockAccount success');
-        var Contract = new web3.eth.Contract(ContractABI);
-        Contract.deploy({ data: ContractData }).send({
+        console.log('deploy contract');
+        var Contract = new web3.eth.Contract(contractABI);
+        Contract.deploy({ data: contractData }).send({
             from: config.COINBASE_ACCOUNT,
             gas: config.GAS,
             gasPrice: config.GAS_PRICE
-        }).on('receipt', function(receipt) {
-            console.log('receipt contractAddress:' + receipt.contractAddress)
+        }).on('receipt', (receipt) => {
+            console.log('receipt contractAddress:' + receipt.contractAddress);
             config.CONTRACT_ADDR = receipt.contractAddress;
-            var config_string = JSON.stringify(config, null, 4);
+            config = JSON.stringify(config, null, 4);
             //replace \g  -> 
             //replace "[{ -> [{
             //replace }]" -> }]
-            config_string = config_string.replace(/\\/g, "");
-            config_string = config_string.replace(/\"\[\{/g, "\[\{");
-            config_string = config_string.replace(/\}\]\"/g, "\}\]");
-            fs.writeFileSync('./config.json', config_string, "utf8", (err) => {
+            config = config.replace(/\\/g, "");
+            config = config.replace(/"\[\{/g, "[{");
+            config = config.replace(/\}\]"/g, "}]");
+            fs.writeFileSync('../data/config.json', config, "utf8", (err) => {
                 if (err) throw err;
                 console.log('The config file has been saved!');
             });
-        }).catch(function(error) {
+        }).catch((error) => {
             console.log('deploy fail, error: ' + error);
-        })
-    }).catch(function(error) {
+        });
+    }).catch((error) => {
         console.log('unlockAccount fail, error: ' + error);
     });
