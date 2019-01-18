@@ -5,7 +5,7 @@ A library to write audit records on the Ethereum blockchain
 ## Installation
 
 ```bash
-npm install
+$ npm install
 ```
 
 ## Usage
@@ -14,11 +14,12 @@ npm install
 const EthAudit = require('ethereum-audit');
 ```
 
-## Function Test
+## Function Tests
 
 ```
-Usage: node test_eth_audit.js [options]
-       DEBUG=eth_audit_log node test_eth_audit.js [options]
+Usage:
+  $ node test_eth_audit.js [options]
+  $ DEBUG=eth_audit_log node test_eth_audit.js [options]
 Options:
   -u    unlock the ETH account for sending transactions
   -a    query the ETH accounts in the node
@@ -31,10 +32,66 @@ Options:
   -l    get all audit data
 ```
 
-## Auto Unitest
+## Sample Outputs
 
 ```bash
-npm run test
+$ node test/test_eth_audit.js -u
+[Input]  (none)
+[Output] {"result":true}
+```
+
+```bash
+$ node test/test_eth_audit.js -a
+[Input]  (none)
+[Output] {"result":["0x78E030450c0B4f41a97134AA0F77099705f9Bb41","0x79724b56359De5eb5B368151AF1A16DD7229335f"]}
+```
+
+```bash
+$ node test/test_eth_audit.js -i
+[Input]  reqbody.key, reqbody.data
+[Output] {"result":"Transaction is received and written."}
+```
+
+```bash
+$ node test/test_eth_audit.js -d
+[Input]  reqbody.key
+[Output] {"result":"testData2"}
+```
+
+```bash
+$ node test/test_eth_audit.js -c
+[Input]  (none)
+[Output] {"result":"2"}
+```
+
+```bash
+$ node test/test_eth_audit.js -k
+[Input]  reqbody.index
+[Output] {"result":{"1":"testKey2"}}
+```
+
+```bash
+$ node test/test_eth_audit.js -o
+[Input]  reqbody.addr
+[Output] {"result":"Transaction is received and written."}
+```
+
+```bash
+$ node test/test_eth_audit.js -w
+[Input]  reqbody.addr
+[Output] {"result":true}
+```
+
+```bash
+$ node test/test_eth_audit.js -l
+[Input]  (none)
+[Output] {"result":[{"testKey1":"testData1"},{"testKey2":"testData2"}]}
+```
+
+## Unitests
+
+```bash
+$ npm run test
 ```
 
 TODO
