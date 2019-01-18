@@ -12,7 +12,7 @@ async function main() {
     assert.strictEqual(response['result'], 'testData');
     response = await ethaudit.getAuditDataCount(reqbody);
     response = JSON.parse(response);
-    assert.strictEqual(response['result'], '2');
+    assert.strictEqual(response['result'], '1');
     response = await ethaudit.getAuditKey(reqbody);
     response = JSON.parse(response);
     assert.strictEqual(response['result']['0'], 'testKey');
@@ -22,7 +22,6 @@ async function main() {
     response = await ethaudit.getAuditDataAll();
     response = JSON.parse(response);
     assert.strictEqual(response['result'][0]['testKey'], 'testData');
-    assert.strictEqual(response['result'][1]['testKeyx'], 'testDatax');
 }
 
 module.exports = main;
