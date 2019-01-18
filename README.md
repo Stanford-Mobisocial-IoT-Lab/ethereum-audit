@@ -18,8 +18,8 @@ const EthAudit = require('ethereum-audit');
 
 ```
 Usage:
-  $ node test_eth_audit.js [options]
-  $ DEBUG=eth_audit_log node test_eth_audit.js [options]
+  $ node test/test_eth_audit.js [options]
+  $ DEBUG=eth_audit_log node test/test_eth_audit.js [options]
 Options:
   -u    unlock the ETH account for sending transactions
   -a    query the ETH accounts in the node
