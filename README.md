@@ -37,8 +37,8 @@ Options:
 ```
 reqbody.json
 {
-    "key": "testKeyooo",
-    "data": "testDataooo",
+    "key": "testKey2",
+    "data": "testData2",
     "addr": "0x79724b56359De5eb5B368151AF1A16DD7229335f",
     "index": "1"
 }
