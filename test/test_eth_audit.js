@@ -18,6 +18,8 @@
 //
 // Author: Alison Lin <yslin1013@gmail.com>
 
+"use strict";
+
 const EthAudit = require('../lib/ethereum-audit');
 const config = require('../data/config.json');
 const _ethaudit = new EthAudit(config);
@@ -106,8 +108,8 @@ async function testSelect() {
             // test_eth_audit.js -a
             // DEBUG=* node test_eth_audit.js -a
             // DEBUG=eth_audit_log node test_eth_audit.js -a
-            let msg = 'Usage: node test_eth_audit.js [options]\n';
-            msg += '       DEBUG=eth_audit_log node test_eth_audit.js [options]\n'
+            var msg = 'Usage: node test_eth_audit.js [options]\n';
+            msg += '       DEBUG=eth_audit_log node test_eth_audit.js [options]\n';
             msg += 'Options: \n';
             msg += '  -u\tunlock the ETH account for sending transactions\n';
             msg += '  -a\tquery the ETH accounts in the node\n';
