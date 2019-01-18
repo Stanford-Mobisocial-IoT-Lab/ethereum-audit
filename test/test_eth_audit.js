@@ -27,10 +27,12 @@ const _ethaudit = new EthAudit(config);
 // fake data for testing
 const reqbody = require('./reqbody.json');
 
-const option = process.argv[2];
-testSelect();
+(async function main() {
+    for (let option of process.argv.slice(2))
+        await testSelect(option);
+})();
 
-async function testSelect() {
+async function testSelect(option) {
     switch (option) {
         case '-u':
             try {
