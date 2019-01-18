@@ -32,7 +32,17 @@ Options:
   -l    get all audit data
 ```
 
-## Sample Outputs
+## Sample Inputs & Outputs
+
+```
+reqbody.json
+{
+    "key": "testKeyooo",
+    "data": "testDataooo",
+    "addr": "0x78E030450c0B4f41a97134AA0F77099705f9Bb41",
+    "index": "1"
+}
+```
 
 ```bash
 $ node test/test_eth_audit.js -u
