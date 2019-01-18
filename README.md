@@ -14,7 +14,7 @@ npm install
 const EthAudit = require('ethereum-audit');
 ```
 
-## Test
+## Function Test
 
 ```
 Usage: node test_eth_audit.js [options]
@@ -31,5 +31,10 @@ Options:
   -l    get all audit data
 ```
 
+## Auto Unitest
+
+```bash
+npm run test
+```
 
 TODO
