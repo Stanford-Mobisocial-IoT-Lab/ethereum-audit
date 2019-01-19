@@ -21,19 +21,19 @@
 "use strict";
 
 const EthAudit = require('../lib/ethereum-audit');
-const config = require('../data/config.json');
-config.COINBASE_ACCOUNT = process.env.coinbase_account;
-config.PASSPHRASE = process.env.passphrase;
-config.CONTRACT_ADDR = process.env.contract_address;
+const config = require('./config_sample.json');
 const _ethaudit = new EthAudit(config);
 
 // fake data for testing
-const reqbody = require('./reqbody.json');
+const reqbody = require('./reqbody_sample.json');
 
 (async function main() {
     for (let option of process.argv.slice(2))
         await testSelect(option);
 })();
+
+if (process.argv.slice(2).length === 0)
+    testSelect();
 
 async function testSelect(option) {
     switch (option) {
