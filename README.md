@@ -14,12 +14,12 @@ $ npm install
 const EthAudit = require('ethereum-audit');
 ```
 
-## Function Tests
+## Running Examples
 
 ```
 Usage:
-  $ node test/test_eth_audit.js [options]
-  $ DEBUG=eth_audit_log node test/test_eth_audit.js [options]
+  $ node samples/eth_audit_sample.js [options]
+  $ DEBUG=eth_audit_log node samples/eth_audit_sample.js [options]
 Options:
   -u    unlock the ETH account for sending transactions
   -a    query the ETH accounts in the node
@@ -35,7 +35,7 @@ Options:
 ## Sample Inputs & Outputs
 
 ```
-reqbody.json
+reqbody_sample.json
 {
     "key": "testKey2",
     "data": "testData2",
@@ -45,39 +45,39 @@ reqbody.json
 ```
 
 ```bash
-$ node test/test_eth_audit.js -u
+$ node samples/eth_audit_sample.js -u
 [Input]  (none)
 [Output] {"result":true}
 
-$ node test/test_eth_audit.js -a
+$ node samples/eth_audit_sample.js -a
 [Input]  (none)
 [Output] {"result":["0x78E030450c0B4f41a97134AA0F77099705f9Bb41","0x79724b56359De5eb5B368151AF1A16DD7229335f"]}
 
-$ node test/test_eth_audit.js -i
+$ node samples/eth_audit_sample.js -i
 [Input]  reqbody.key, reqbody.data
 [Output] {"result":"Transaction is received and written."}
 
-$ node test/test_eth_audit.js -d
+$ node samples/eth_audit_sample.js -d
 [Input]  reqbody.key
 [Output] {"result":"testData2"}
 
-$ node test/test_eth_audit.js -c
+$ node samples/eth_audit_sample.js -c
 [Input]  (none)
 [Output] {"result":"2"}
 
-$ node test/test_eth_audit.js -k
+$ node samples/eth_audit_sample.js -k
 [Input]  reqbody.index
 [Output] {"result":{"1":"testKey2"}}
 
-$ node test/test_eth_audit.js -o
+$ node samples/eth_audit_sample.js -o
 [Input]  reqbody.addr
 [Output] {"result":"Transaction is received and written."}
 
-$ node test/test_eth_audit.js -w
+$ node samples/eth_audit_sample.js -w
 [Input]  reqbody.addr
 [Output] {"result":true}
 
-$ node test/test_eth_audit.js -l
+$ node samples/eth_audit_sample.js -l
 [Input]  (none)
 [Output] {"result":[{"testKey1":"testData1"},{"testKey2":"testData2"}]}
 ```
