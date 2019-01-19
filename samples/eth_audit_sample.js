@@ -110,11 +110,11 @@ async function testSelect(option) {
             }
             break;
         default:
-            // test_eth_audit.js -a
-            // DEBUG=* node test_eth_audit.js -a
-            // DEBUG=eth_audit_log node test_eth_audit.js -a
-            var msg = 'Usage: node test_eth_audit.js [options]\n';
-            msg += '       DEBUG=eth_audit_log node test_eth_audit.js [options]\n';
+            // eth_audit_sample.js -a
+            // DEBUG=* node eth_audit_sample.js -a
+            // DEBUG=eth_audit_log node eth_audit_sample.js -a
+            var msg = 'Usage: node eth_audit_sample.js [options]\n';
+            msg += '       DEBUG=eth_audit_log node eth_audit_sample.js [options]\n';
             msg += 'Options: \n';
             msg += '  -u\tunlock the ETH account for sending transactions\n';
             msg += '  -a\tquery the ETH accounts in the node\n';
