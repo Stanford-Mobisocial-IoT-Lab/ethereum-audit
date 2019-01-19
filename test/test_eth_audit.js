@@ -21,7 +21,10 @@
 "use strict";
 
 const EthAudit = require('../lib/ethereum-audit');
-const config = require('./test_config.json');
+const config = require('../data/config.json');
+config.COINBASE_ACCOUNT = process.env.coinbase_account;
+config.PASSPHRASE = process.env.passphrase;
+config.CONTRACT_ADDR = process.env.contract_address;
 const _ethaudit = new EthAudit(config);
 
 // fake data for testing

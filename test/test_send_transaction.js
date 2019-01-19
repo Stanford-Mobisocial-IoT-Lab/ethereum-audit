@@ -3,7 +3,10 @@
 var reqbody = require('./reqbody.json');
 var EthAudit = require('../lib/ethereum-audit.js');
 const assert = require('assert');
-const config = require('./test_config.json');
+const config = require('../data/config.json');
+config.COINBASE_ACCOUNT = process.env.coinbase_account;
+config.PASSPHRASE = process.env.passphrase;
+config.CONTRACT_ADDR = process.env.contract_address;
 const ethaudit = new EthAudit(config);
 
 async function main() {
