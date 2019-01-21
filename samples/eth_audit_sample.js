@@ -110,9 +110,6 @@ async function testSelect(option) {
             }
             break;
         default:
-            // node eth_audit_sample.js -a
-            // DEBUG=* node eth_audit_sample.js -a
-            // DEBUG=eth_audit_log node eth_audit_sample.js -a
             var msg = 'Usage: node eth_audit_sample.js [options]\n';
             msg += '       DEBUG=eth_audit_log node eth_audit_sample.js [options]\n';
             msg += 'Options: \n';
