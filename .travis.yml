@@ -11,5 +11,5 @@ before_script: greenkeeper-lockfile-update
 after_script: greenkeeper-lockfile-upload
 script:
 - yarn lint
-- yarn test
+- DEBUG=eth_audit_log yarn test
 after_success: yarn run coverage
