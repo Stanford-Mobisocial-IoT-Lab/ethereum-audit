@@ -17,5 +17,6 @@ async function seq(array) {
 seq([
     ('./test_send_transaction.js'),
     ('./test_get_info.js'),
-    ('./test_empty.js')
+    ('./test_empty.js'),
+    ('./test_wrong.js')
 ]);

@@ -10,9 +10,15 @@ config.CONTRACT_ADDR = process.env.contract_address;
 const ethaudit = new EthAudit(config);
 
 async function main() {
-    var response = await ethaudit.insertAuditData(reqbody);
+    var response = await ethaudit.unlockEthAccount();
+    response = JSON.parse(response);
+    assert.strictEqual(response['result'], true);
+    response = await ethaudit.insertAuditData(reqbody);
     response = JSON.parse(response);
     assert.strictEqual(response['result'], 'Transaction is received and written.');
+    response = await ethaudit.unlockEthAccount();
+    response = JSON.parse(response);
+    assert.strictEqual(response['result'], true);
     response = await ethaudit.addNewOwner(reqbody);
     response = JSON.parse(response);
     assert.strictEqual(response['result'], 'Transaction is received and written.');

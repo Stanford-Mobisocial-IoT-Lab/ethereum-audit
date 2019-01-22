@@ -8,7 +8,11 @@ config.CONTRACT_ADDR = process.env.contract_address;
 const ethaudit = new EthAudit(config);
 
 async function main() {
-    var response = await ethaudit.getAuditDataByKey(reqbody);
+    var response = await ethaudit.retrieveEthAccounts();
+    response = JSON.parse(response);
+    assert.strictEqual(response['result'][0], process.env.account1);
+    assert.strictEqual(response['result'][1], process.env.account2);
+    response = await ethaudit.getAuditDataByKey(reqbody);
     response = JSON.parse(response);
     assert.strictEqual(response['result'], 'testData');
     response = await ethaudit.getAuditDataCount(reqbody);
@@ -20,6 +24,10 @@ async function main() {
     response = await ethaudit.checkIsOwner(reqbody);
     response = JSON.parse(response);
     assert.strictEqual(response['result'], true);
+    reqbody.addr = process.env.account1;
+    response = await ethaudit.checkIsOwner(reqbody);
+    response = JSON.parse(response);
+    assert.strictEqual(response['result'], false);
     response = await ethaudit.getAuditDataAll();
     response = JSON.parse(response);
     assert.strictEqual(response['result'][0]['testKey'], 'testData');
