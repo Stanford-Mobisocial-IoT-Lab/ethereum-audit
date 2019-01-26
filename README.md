@@ -82,6 +82,33 @@ $ node samples/eth_audit_sample.js -l
 [Output] {"result":[{"testKey1":"testData1"},{"testKey2":"testData2"}]}
 ```
 
+## Sample Code
+
+```
+/*
+   Configuration Example 
+   https://github.com/Stanford-Mobisocial-IoT-Lab/ethereum-audit/blob/master/samples/config_sample.json
+*/
+
+const EthAudit = require('ethereum-audit');
+const config = require('./config_sample.json');
+
+const _ethaudit = new EthAudit(config);
+const reqbody = {
+    "key": "testKey",
+    "data": "testData"
+};
+
+try {
+    let unlock = await _etaudit.unlockEthAccount();
+    console.log(unlock);  // {"result":true}
+    let result = await _ethaudit.insertAuditData(reqbody);
+    console.log(result);  // {"result":"Transaction is received and written."}
+} catch (error) {
+    console.log(error);
+}
+```
+
 ## Unitests
 
 ```bash
