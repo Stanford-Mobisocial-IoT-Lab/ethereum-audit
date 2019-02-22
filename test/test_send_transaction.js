@@ -1,7 +1,7 @@
 "use strict";
 
-var reqbody = require('./reqbody.json');
-var EthAudit = require('../lib/ethereum-audit.js');
+const reqbody = require('./reqbody.json');
+const EthAudit = require('../lib/ethereum-audit.js');
 const assert = require('assert');
 const config = require('../data/config.json');
 config.COINBASE_ACCOUNT = process.env.coinbase_account;
@@ -10,18 +10,14 @@ config.CONTRACT_ADDR = process.env.contract_address;
 const ethaudit = new EthAudit(config);
 
 async function main() {
-    var response = await ethaudit.unlockEthAccount();
-    response = JSON.parse(response);
-    assert.strictEqual(response['result'], true);
+    let response = await ethaudit.unlockEthAccount();
+    assert.strictEqual(response, true);
     response = await ethaudit.insertAuditData(reqbody);
-    response = JSON.parse(response);
-    assert.strictEqual(response['result'], 'Transaction is received and written.');
+    assert.strictEqual(response.msg, 'Transaction is received and written.');
     response = await ethaudit.unlockEthAccount();
-    response = JSON.parse(response);
-    assert.strictEqual(response['result'], true);
+    assert.strictEqual(response, true);
     response = await ethaudit.addNewOwner(reqbody);
-    response = JSON.parse(response);
-    assert.strictEqual(response['result'], 'Transaction is received and written.');
+    assert.strictEqual(response.msg, 'Transaction is received and written.');
 }
 
 module.exports = main;
